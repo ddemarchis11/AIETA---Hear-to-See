@@ -1,0 +1,738 @@
+{
+  "id": "aa561ef5-57e7-40d6-87f1-e7d19d7ddd0e",
+  "revision": 0,
+  "last_node_id": 57,
+  "last_link_id": 95,
+  "nodes": [
+    {
+      "id": 38,
+      "type": "💾 Save Text File With Path",
+      "pos": [
+        5256.2587890625,
+        -1239.09814453125
+      ],
+      "size": [
+        430.8000183105469,
+        198
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "file_text",
+          "type": "STRING",
+          "link": 95
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output_full_path",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "output_name",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-mnemic-nodes",
+        "ver": "1.3.4",
+        "Node name for S&R": "💾 Save Text File With Path"
+      },
+      "widgets_values": [
+        "[time(%Y-%m-%d)]/",
+        "prompt_for_chunk_",
+        "_",
+        0,
+        "",
+        "txt"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "ConditionalNode",
+      "pos": [
+        2614.807373046875,
+        -1473.75146484375
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "FILE",
+          "link": 14
+        },
+        {
+          "name": "compare_value",
+          "type": "INT",
+          "widget": {
+            "name": "compare_value"
+          },
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "FILE",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ConditionalNode"
+      },
+      "widgets_values": [
+        0,
+        1,
+        "=="
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ClassifyAudio",
+      "pos": [
+        2616.201171875,
+        -1721.8092041015625
+      ],
+      "size": [
+        315,
+        154
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "file",
+          "type": "FILE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "label",
+          "type": "INT",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ClassifyAudio"
+      },
+      "widgets_values": [
+        "classifier_mfcc_speak.joblib",
+        3,
+        256,
+        1024,
+        13
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadAudio",
+      "pos": [
+        1952.1705322265625,
+        -1316.4892578125
+      ],
+      "size": [
+        361.1091613769531,
+        166.07740783691406
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": []
+        },
+        {
+          "name": "FILE",
+          "type": "FILE",
+          "links": [
+            1,
+            14,
+            17
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "LoadAudio",
+        "widget_ue_connectable": {
+          "audio": true,
+          "audioUI": true,
+          "upload": true
+        }
+      },
+      "widgets_values": [
+        "voice_base_noise.wav",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 15,
+      "type": "ClearAudio",
+      "pos": [
+        2571.82958984375,
+        -985.8833618164062
+      ],
+      "size": [
+        405.5999755859375,
+        226
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "file",
+          "type": "FILE",
+          "link": 17
+        },
+        {
+          "name": "label",
+          "type": "INT",
+          "widget": {
+            "name": "label"
+          },
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "cleaned_file",
+          "type": "FILE",
+          "links": [
+            67
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ClearAudio"
+      },
+      "widgets_values": [
+        0,
+        "htdemucs",
+        "cuda",
+        2048,
+        "hann",
+        0.2,
+        3,
+        0.010000000000000002
+      ]
+    },
+    {
+      "id": 20,
+      "type": "TranscribeChunks",
+      "pos": [
+        3608.143798828125,
+        -1252.083740234375
+      ],
+      "size": [
+        378,
+        150
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "chunks_folder",
+          "type": "FOLDER",
+          "link": 22
+        },
+        {
+          "name": "model_dir",
+          "type": "FOLDER",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "chunk_folder",
+          "type": "STRING",
+          "links": [
+            69
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TranscribeChunks"
+      },
+      "widgets_values": [
+        "small",
+        "it",
+        "transcribe",
+        "cuda"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "ChunkAudio",
+      "pos": [
+        3635.9951171875,
+        -1413.8233642578125
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "file",
+          "type": "FILE",
+          "link": 67
+        }
+      ],
+      "outputs": [
+        {
+          "name": "chunks_folder",
+          "type": "FOLDER",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ChunkAudio"
+      },
+      "widgets_values": [
+        "saliency_split"
+      ]
+    },
+    {
+      "id": 31,
+      "type": "LoadTextDirectory",
+      "pos": [
+        4332.37451171875,
+        -1726.171630859375
+      ],
+      "size": [
+        349.993896484375,
+        254.19439697265625
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "path",
+          "type": "STRING",
+          "widget": {
+            "name": "path"
+          },
+          "link": 69
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            42
+          ]
+        },
+        {
+          "name": "filename_text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "djz-nodes",
+        "ver": "2.2.2",
+        "Node name for S&R": "LoadTextDirectory"
+      },
+      "widgets_values": [
+        "single_file",
+        188,
+        "increment",
+        0,
+        "",
+        "",
+        "*"
+      ]
+    },
+    {
+      "id": 34,
+      "type": "Evaluate Strings",
+      "pos": [
+        4346.9755859375,
+        -1263.213623046875
+      ],
+      "size": [
+        337.3960876464844,
+        260.3814697265625
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "a"
+          },
+          "link": 41
+        },
+        {
+          "name": "b",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "b"
+          },
+          "link": 42
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            43
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "efficiency-nodes-comfyui",
+        "ver": "1.0.7",
+        "Node name for S&R": "Evaluate Strings",
+        "widget_ue_connectable": {
+          "python_expression": true,
+          "print_to_console": true,
+          "a": true,
+          "b": true,
+          "c": true
+        }
+      },
+      "widgets_values": [
+        "a + b + c",
+        "True",
+        "",
+        "",
+        "}"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159",
+      "shape": 1
+    },
+    {
+      "id": 33,
+      "type": "String",
+      "pos": [
+        4347.49951171875,
+        -1399.620849609375
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            41
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-logic",
+        "ver": "1.0.0",
+        "Node name for S&R": "String"
+      },
+      "widgets_values": [
+        "{userinput} : { "
+      ]
+    },
+    {
+      "id": 17,
+      "type": "✨💬 Groq LLM API",
+      "pos": [
+        4716.498046875,
+        -1725.3187255859375
+      ],
+      "size": [
+        486.2359313964844,
+        698.5859375
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "user_input",
+          "type": "STRING",
+          "widget": {
+            "name": "user_input"
+          },
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "name": "api_response",
+          "type": "STRING",
+          "links": [
+            95
+          ]
+        },
+        {
+          "name": "success",
+          "type": "BOOLEAN",
+          "links": null
+        },
+        {
+          "name": "status_code",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-mnemic-nodes",
+        "ver": "1.3.4",
+        "Node name for S&R": "✨💬 Groq LLM API"
+      },
+      "widgets_values": [
+        "deepseek-r1-distill-llama-70b",
+        "Use [system_message] and [user_input]",
+        "The used prompt for reference is this: \"Generate a prompt for image generation based on the user input for each text separated by ---: {userInput}. \nThe prompt should be brief but complete, maximizing the total information contained in the user input to provide the diffusion model a perfect prompt to generate a well constructed image.\nBe creative and surprising.\nTry to keep the subject constant.\nThe key to achieving an optimal prompt for image generation is to use short sentences that describe the main character and the context, and add details using a single keyword. few keywords that should be always added are words like \"masterpiece\" or \"high quality\" to improve the general prompt.\nTHE OUTPUT MUST BE ONLY THE PROMPT, AVOID STARTING WITH \"Generate a prompt\"\" where user input is the extracted chunk transcription.",
+        "",
+        0.7500000000000001,
+        312,
+        1,
+        1941818968,
+        "randomize",
+        2,
+        "",
+        false
+      ]
+    },
+    {
+      "id": 10,
+      "type": "ClassifyBackgroundAudio",
+      "pos": [
+        2584.81201171875,
+        -1243.002685546875
+      ],
+      "size": [
+        377.6072998046875,
+        143.53890991210938
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "file",
+          "type": "FILE",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "label",
+          "type": "INT",
+          "links": [
+            16
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ClassifyBackgroundAudio"
+      },
+      "widgets_values": [
+        "yamnet_model_large_dataset.joblib",
+        16000,
+        true
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      3,
+      1,
+      5,
+      0,
+      "FILE"
+    ],
+    [
+      13,
+      5,
+      0,
+      12,
+      1,
+      "INT"
+    ],
+    [
+      14,
+      3,
+      1,
+      12,
+      0,
+      "FILE"
+    ],
+    [
+      15,
+      12,
+      0,
+      10,
+      0,
+      "FILE"
+    ],
+    [
+      16,
+      10,
+      0,
+      15,
+      1,
+      "INT"
+    ],
+    [
+      17,
+      3,
+      1,
+      15,
+      0,
+      "FILE"
+    ],
+    [
+      22,
+      19,
+      0,
+      20,
+      0,
+      "FOLDER"
+    ],
+    [
+      41,
+      33,
+      0,
+      34,
+      0,
+      "STRING"
+    ],
+    [
+      42,
+      31,
+      0,
+      34,
+      1,
+      "STRING"
+    ],
+    [
+      43,
+      34,
+      0,
+      17,
+      0,
+      "STRING"
+    ],
+    [
+      67,
+      15,
+      0,
+      19,
+      0,
+      "FILE"
+    ],
+    [
+      69,
+      20,
+      0,
+      31,
+      0,
+      "STRING"
+    ],
+    [
+      95,
+      17,
+      0,
+      38,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Classificazione audio + pulizia",
+      "bounding": [
+        2430,
+        -1830,
+        791.3065185546875,
+        1182.4478759765625
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Split audio + transcrizione whisper",
+      "bounding": [
+        3560,
+        -1580,
+        469.5025939941406,
+        660.4788818359375
+      ],
+      "color": "#88A",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "Text2Prompt",
+      "bounding": [
+        4310,
+        -1880,
+        1441.0733642578125,
+        943.7896118164062
+      ],
+      "color": "#8AA",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.37088845720890623,
+      "offset": [
+        -742.8905700866037,
+        2341.6258276051226
+      ]
+    },
+    "frontendVersion": "1.17.11",
+    "ue_links": []
+  },
+  "version": 0.4
+}
